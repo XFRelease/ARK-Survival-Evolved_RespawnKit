@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>重生赐装(RespawnKit) 服主教程</title>
+<style>
+/* ============================================================
+   样式区：禁止修改！
+   本模板是 xiangmujiaocheng 技能的「服主教程」专属模板（清爽文档蓝）。
+   修改此区会破坏所有项目服主教程的视觉统一。
+   ============================================================ */
+:root{--acc:#2563eb;--accbg:#eff6ff;--line:#e2e8f0;--line2:#cbd5e1;--text:#1e293b;--dim:#64748b;--bg2:#f8fafc;--ok:#16a34a;--warn:#d97706;--warnbg:#fffbeb;--warnline:#fde68a}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font:15.5px/1.85 "Microsoft YaHei","PingFang SC","Segoe UI",sans-serif;color:var(--text);background:#fff}
+a{color:var(--acc);text-decoration:none}a:hover{text-decoration:underline}
+code{background:var(--accbg);color:#1d4ed8;border-radius:4px;padding:1px 7px;font-family:Consolas,"Courier New",monospace;font-size:13.5px}
+pre{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:13px 16px;overflow:auto}
+pre code{background:none;color:#0f172a;padding:0}
+.hide{display:none!important}
+
+.hero{background:linear-gradient(180deg,#eef5ff 0%,#ffffff 100%);border-bottom:1px solid var(--line);padding:36px 20px 26px}
+.hero-in{max-width:1180px;margin:0 auto}
+.kind{display:inline-block;background:var(--acc);color:#fff;border-radius:4px;font-size:13px;padding:2px 12px;letter-spacing:2px}
+.hero h1{margin:12px 0 6px;font-size:30px}
+.hero h1 .accent{color:var(--acc)}
+.hero .sub{color:var(--dim);margin:0;font-size:15px}
+
+.toolbar{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 1px 3px rgba(15,23,42,.05)}
+.toolbar-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:10px 20px}
+#searchInput{flex:1 1 240px;border:1px solid var(--line2);border-radius:8px;padding:8px 14px;font-size:14.5px;outline:none;background:var(--bg2)}
+#searchInput:focus{border-color:var(--acc);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--line2);background:#fff;color:var(--dim);border-radius:999px;padding:5px 15px;font-size:13.5px;cursor:pointer}
+.chip:hover{border-color:var(--acc);color:var(--acc)}
+.chip.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.count{color:var(--dim);font-size:13px;white-space:nowrap}
+
+.layout{max-width:1180px;margin:0 auto;padding:26px 20px 70px;display:flex;gap:36px;align-items:flex-start}
+.toc{flex:0 0 215px;position:sticky;top:66px}
+.toc-title{font-size:12.5px;color:var(--dim);letter-spacing:3px;margin-bottom:8px;padding-left:10px}
+.toc a{display:block;color:var(--dim);padding:6px 10px;border-left:2px solid var(--line);font-size:14px}
+.toc a:hover{color:var(--acc);border-left-color:var(--acc);background:var(--accbg);text-decoration:none}
+.toc a.dim{opacity:.35}
+.content{flex:1 1 500px;min-width:320px}
+
+.unit{margin:0 0 38px}
+.group{font-size:12.5px;color:var(--acc);letter-spacing:2px;margin-bottom:4px}
+.unit>h2{margin:0 0 10px;font-size:22px;border-left:4px solid var(--acc);padding-left:12px}
+.lead{color:var(--dim);margin:0 0 14px;font-size:14.5px}
+.unit h3{font-size:16.5px;margin:20px 0 8px}
+
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:13px;margin:16px 0}
+.card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:15px 17px;box-shadow:0 1px 2px rgba(15,23,42,.04);transition:.15s}
+.card:hover{border-color:var(--acc);box-shadow:0 4px 14px rgba(37,99,235,.12)}
+.card .icon{font-size:22px}
+.card h4{margin:7px 0 5px;font-size:15.5px;color:var(--acc)}
+.card p{margin:0;color:var(--dim);font-size:13.5px}
+
+ol.steps{list-style:none;counter-reset:st;padding:0;margin:8px 0 0}
+ol.steps>li{counter-increment:st;position:relative;padding:0 0 20px 48px}
+ol.steps>li::before{content:counter(st);position:absolute;left:0;top:2px;width:30px;height:30px;border-radius:50%;background:var(--acc);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+ol.steps>li::after{content:"";position:absolute;left:14px;top:36px;bottom:4px;width:2px;background:var(--line)}
+ol.steps>li:last-child{padding-bottom:2px}
+ol.steps>li:last-child::after{display:none}
+.step-title{display:block;font-weight:700;margin-bottom:3px}
+ol.steps p{margin:0}
+
+.note,.warning{border-radius:8px;padding:12px 16px;margin:14px 0;font-size:14.5px}
+.note{background:var(--accbg);border:1px solid #bfdbfe}
+.warning{background:var(--warnbg);border:1px solid var(--warnline)}
+
+table.data-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14.5px}
+.data-table th{background:var(--accbg);color:#1d4ed8;text-align:left}
+.data-table th,.data-table td{border:1px solid var(--line);padding:8px 13px}
+.data-table tr:nth-child(even) td{background:#fbfdff}
+.data-table td code{white-space:nowrap}
+
+details.faq{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px 16px;margin:9px 0}
+details.faq summary{cursor:pointer;font-weight:600}
+details.faq[open]{border-color:var(--acc)}
+details.faq .answer{color:var(--dim);padding-top:7px}
+
+.shot{border:2px dashed var(--line2);border-radius:8px;padding:26px;text-align:center;color:var(--dim);font-size:14px;margin:13px 0}
+.badge{display:inline-block;border-radius:4px;padding:1px 10px;font-size:12.5px;margin-right:6px;color:var(--acc);border:1px solid var(--acc)}
+.badge.ok{color:var(--ok);border-color:var(--ok)}
+.badge.warn{color:var(--warn);border-color:var(--warn)}
+.empty{border:1px dashed var(--line2);border-radius:10px;padding:44px;text-align:center;color:var(--dim);margin:20px 0}
+
+.foot{border-top:1px solid var(--line);color:var(--dim);text-align:center;padding:20px;font-size:13px;background:var(--bg2)}
+@media (max-width:820px){.toc{display:none}.layout{padding-top:18px}.hero h1{font-size:24px}}
+</style>
+</head>
+<body>
+
+<header class="hero"><div class="hero-in">
+  <span class="kind">服主教程</span>
+  <h1>重生赐装 <span class="accent">配置与部署指南</span></h1>
+  <p class="sub">面向服主:安装部署、全部配置项详解与疑难排查</p>
+</div></header>
+
+<div class="toolbar"><div class="toolbar-in">
+  <input id="searchInput" type="search" placeholder="搜索配置项、命令、问题…">
+  <div class="chips">
+    <button class="chip on" data-cat="all">全部</button>
+    <button class="chip" data-cat="deploy">部署</button>
+    <button class="chip" data-cat="basic">基础配置</button>
+    <button class="chip" data-cat="cmd">命令详解</button>
+    <button class="chip" data-cat="faq">疑难解答</button>
+  </div>
+  <span class="count" id="resultCount"></span>
+</div></div>
+
+<div class="layout">
+<nav class="toc">
+  <div class="toc-title">目录</div>
+  <a href="#u1">软件总览</a>
+  <a href="#u2">环境要求</a>
+  <a href="#u3">部署安装</a>
+  <a href="#u4">配置文件说明</a>
+  <a href="#u5">配置总表</a>
+  <a href="#u6">套装列表</a>
+  <a href="#u7">权限组与匹配规则</a>
+  <a href="#u8">物品配置(蓝图/数量/固定品质)</a>
+  <a href="#u9">行为开关</a>
+  <a href="#u10">ConsoleEncoding</a>
+  <a href="#u11">命令用法</a>
+  <a href="#u12">常见问题</a>
+  <a href="#u13">技术支持</a>
+</nav>
+
+<main class="content">
+
+<!-- 01 软件总览 -->
+<section class="unit" id="u1" data-cat="basic">
+  <div class="group">第一章 · 软件总览</div>
+  <h2>软件总览</h2>
+  <p class="lead">重生赐装(RespawnKit)是方舟生存进化的服务端插件:玩家死亡重生或进入服务器(上线/传图/新角色)时,自动发放套装——护甲<b>自动穿戴</b>上身、物品发放进背包——解决官方"重生裸装"在直播画面里被平台判定违规的问题。全部行为通过一个 JSON 配置文件控制。</p>
+  <div class="card-grid">
+    <div class="unit card" data-cat="basic"><div class="icon">🛡️</div><h4>重生/进服自动穿装</h4><p>玩家重生或进服落地即自动穿戴整齐,直播画面不再停留在裸体状态。</p></div>
+    <div class="unit card" data-cat="basic"><div class="icon">👑</div><h4>VIP 分组套装</h4><p>套装绑定 Permissions 权限组,VIP1/2 与 VIP3/4 各发各的。</p></div>
+    <div class="unit card" data-cat="basic"><div class="icon">🧩</div><h4>槽位自由配置</h4><p>五件护甲加任意物品,每个槽位不配置就不给。</p></div>
+    <div class="unit card" data-cat="basic"><div class="icon">📈</div><h4>品质数量可调</h4><p>每件装备可单独设固定品质与数量,不同 VIP 不同档次。</p></div>
+    <div class="unit card" data-cat="basic"><div class="icon">🔄</div><h4>热重载</h4><p>RespawnKit.Reload 一条命令热重载配置,改套装不用重启。</p></div>
+    <div class="unit card" data-cat="basic"><div class="icon">🛠️</div><h4>容错不罢工</h4><p>蓝图写错只跳过该件并黄字提醒;配置缺节只停用本功能,插件照常加载。</p></div>
+  </div>
+</section>
+
+<!-- 02 环境要求 -->
+<section class="unit" id="u2" data-cat="deploy">
+  <div class="group">第二章 · 环境要求</div>
+  <h2>环境要求</h2>
+  <table class="data-table">
+    <tr><th style="width:160px">项目</th><th>要求</th></tr>
+    <tr><td>操作系统</td><td>Windows(方舟 Windows 版服务端)</td></tr>
+    <tr><td>服务端框架</td><td>ArkServerAPI(ArkApi)<b>3.5 及以上</b>(插件自述文件要求 MinApiVersion 3.5)</td></tr>
+    <tr><td>配套插件</td><td><b>Permissions 插件(必需)</b>——本插件通过它判定玩家 VIP 分组;未安装时本插件无法加载</td></tr>
+    <tr><td>配置存储</td><td>JSON 配置文件一个(<code>config.json</code>),无数据库依赖</td></tr>
+  </table>
+</section>
+
+<!-- 03 部署安装 -->
+<section class="unit" id="u3" data-cat="deploy">
+  <div class="group">第三章 · 部署安装</div>
+  <h2>部署安装</h2>
+  <ol class="steps">
+    <li><span class="step-title">确认服务端已安装 ArkServerAPI</span><p>服务器 <code>ShooterGame\Binaries\Win64\</code> 下存在 <code>ArkApi</code> 目录 → 版本需 3.5 及以上 → 不满足先升级。</p></li>
+    <li><span class="step-title">安装 Permissions 插件</span><p>按 Permissions 插件自身的安装说明,把它的文件放到 <code>ShooterGame\Binaries\Win64\ArkApi\Plugins\Permissions\</code> → 本插件依赖它,缺了无法加载。</p></li>
+    <li><span class="step-title">复制本插件文件</span><p>把 <code>RespawnKit.dll</code>、<code>PluginInfo.json</code>、<code>config.json</code> 三个文件复制到 <code>ShooterGame\Binaries\Win64\ArkApi\Plugins\RespawnKit\</code>(目录不存在就新建)→ 也可以用附带的一键安装.bat 自动部署(默认目标 F:\ARK\Servers 下的 1/2/3 号服,可在脚本顶部改 SERVER_BASE 和 SERVER_LIST)。</p></li>
+    <li><span class="step-title">重启服务器</span><p>重启后控制台出现 <code>先锋.重生赐装(1.0)</code> 启动横幅 → 继续下一步。</p></li>
+    <li><span class="step-title">确认配置无报错</span><p>控制台没有黄色警告(如 <code>config.json 缺少 [重生赐装] 节</code>) → 配置即正常;出现黄字按第六章常见问题处理。</p></li>
+    <li><span class="step-title">在 Permissions 里建 VIP 分组</span><p>服务器控制台执行 <code>Permissions.AddGroup VIP1</code> → 提示 <code>Successfully added group</code> → 按需再建 VIP2、VIP3、VIP4 等分组。</p></li>
+    <li><span class="step-title">把玩家加进分组</span><p>服务器控制台执行 <code>Permissions.Add 玩家SteamID VIP1</code> → 提示 <code>Successfully added player</code> → 该玩家重生时就会拿到对应套装。</p></li>
+    <li><span class="step-title">对齐分组名并生效</span><p>编辑 <code>config.json</code> 里各套装的"权限组",与 Permissions 里的分组名完全一致 → 执行 <code>RespawnKit.Reload</code> 热重载(或重启服务器)。</p></li>
+    <li><span class="step-title">验证</span><p>让一名已分组的玩家死亡并重生(或重新登录进服) → 约一秒后装备自动穿上、收到绿色提示 → 控制台出现发放日志即部署完成。</p></li>
+  </ol>
+  <div class="note">玩家 SteamID 可用 Permissions 的 <code>Permissions.PlayerGroups</code> 等命令查询,或在玩家进服时从服务器日志获取。</div>
+</section>
+
+<!-- 04 配置文件说明 -->
+<section class="unit" id="u4" data-cat="basic">
+  <div class="group">第四章 · 配置详解</div>
+  <h2>配置文件说明</h2>
+  <p>配置文件是服务器插件目录下的 <code>config.json</code>,完整路径:</p>
+  <pre><code>&lt;服务器根目录&gt;\ShooterGame\Binaries\Win64\ArkApi\Plugins\RespawnKit\config.json</code></pre>
+  <div class="note">JSON 里逗号、引号、花括号一个都不能少。建议用带 JSON 校验的编辑器(如 VS Code)修改;改前先备份一份。配置损坏导致加载失败时,插件会在控制台输出错误信息。</div>
+</section>
+
+<!-- 04 配置总表 -->
+<section class="unit" id="u5" data-cat="basic">
+  <div class="group">第四章 · 配置详解</div>
+  <h2>配置总表</h2>
+  <p class="lead">本表列出全部配置键与兜底值,可配合页面搜索定位;详细讲法见后续各节。</p>
+  <table class="data-table">
+    <tr><th style="width:220px">配置键</th><th style="width:120px">兜底值</th><th>说明</th></tr>
+    <tr><td><code>ConsoleEncoding</code></td><td>auto</td><td>控制台中文编码:auto / gbk / utf8,详见本章末节</td></tr>
+    <tr><td><code>重生赐装</code></td><td>缺失=功能停用</td><td>功能总节(对象),缺失时黄字提示、插件正常加载</td></tr>
+    <tr><td><code>重生赐装.重生时给</code></td><td>true</td><td>死亡重生时是否发放</td></tr>
+    <tr><td><code>重生赐装.进服时给</code></td><td>true</td><td>进服时是否发放(上线/传图/新角色首次进服)</td></tr>
+    <tr><td><code>重生赐装.给装延迟秒</code></td><td>1</td><td>重生后延迟几秒再给装(等待角色就绪),0 或正整数</td></tr>
+    <tr><td><code>重生赐装.套装列表</code></td><td>缺失=功能停用</td><td>套装数组,缺失或不是数组时黄字提示、功能停用</td></tr>
+    <tr><td><code>套装列表[].组名</code></td><td>""(空)</td><td>提示与日志里显示的套装名,留空显示"重生套装"</td></tr>
+    <tr><td><code>套装列表[].权限组</code></td><td>[](空数组)</td><td>Permissions 分组名数组;留空 = 匹配所有玩家(兜底套装)</td></tr>
+    <tr><td><code>套装列表[].头盔/胸甲/护腿/手套/靴子</code></td><td>不配置=不给</td><td>五件护甲槽位,每件是一个物品对象</td></tr>
+    <tr><td><code>套装列表[].物品</code></td><td>[](空数组)</td><td>附加物品数组,可配 0 到任意件,直接入包</td></tr>
+    <tr><td><code>物品.蓝图</code></td><td>必填,空=跳过该件</td><td>物品蓝图路径,写错会黄字警告并跳过</td></tr>
+    <tr><td><code>物品.数量</code></td><td>1</td><td>给予数量,须为正整数,否则用默认值</td></tr>
+    <tr><td><code>物品.固定品质</code></td><td>0</td><td>固定品质;0=白板,数值越高品质越高</td></tr>
+    <tr><td><code>物品.固定伤害</code></td><td>0</td><td>武器伤害显示值(250 = 250% 伤害);0 = 不指定,按固定品质</td></tr>
+    <tr><td><code>物品.固定护甲</code></td><td>0</td><td>护甲值(500 = 500 护甲);0 = 不指定,按固定品质</td></tr>
+    <tr><td><code>物品.固定耐久</code></td><td>0</td><td>最大耐久值;0 = 不指定,按固定品质</td></tr>
+    <tr><td><code>物品.图纸</code></td><td>false</td><td>true = 发放蓝图而非成品</td></tr>
+  </table>
+</section>
+
+<!-- 04 套装列表 -->
+<section class="unit" id="u6" data-cat="basic">
+  <div class="group">第四章 · 配置详解</div>
+  <h2>套装列表 <span class="badge ok">核心配置</span></h2>
+  <p><b>什么意思:</b>"套装列表"是功能的核心:每个元素是一套装备,玩家重生时命中其中一套,整套发放——护甲自动穿戴,物品直接入包。一套装备由"组名 + 权限组 + 五个护甲槽位 + 物品列表"组成。</p>
+  <p><b>兜底值:</b><span class="badge">缺失或非数组 = 功能停用</span>(控制台黄字提示"config.json [重生赐装] 缺少 [套装列表] 数组, 重生赐装功能停用",插件本体不受影响)。</p>
+  <p><b>怎么加:</b>下面的完整片段可直接复制使用——两套套装(VIP3/4 铁甲套、VIP1/2 吉利服套),即插件自带示例:</p>
+  <pre><code>"重生赐装": {
+  "重生时给": true,
+  "进服时给": true,
+  "给装延迟秒": 1,
+  "套装列表": [
+    {
+      "组名": "高级VIP套装",
+      "权限组": ["VIP3", "VIP4"],
+      "头盔": { "蓝图": "/Game/PrimalEarth/CoreBlueprints/Items/Armor/Metal/PrimalItemArmor_MetalHelmet.PrimalItemArmor_MetalHelmet", "固定品质": 1.5, "固定护甲": 500.0, "固定耐久": 300.0 },
+      "胸甲": { "蓝图": "/Game/PrimalEarth/CoreBlueprints/Items/Armor/Metal/PrimalItemArmor_MetalShirt.PrimalItemArmor_MetalShirt", "固定品质": 1.5, "固定护甲": 500.0, "固定耐久": 300.0 },
+      "护腿": { "蓝图": "/Game/PrimalEarth/CoreBlueprints/Items/Armor/Metal/PrimalItemArmor_MetalPants.PrimalItemArmor_MetalPants", "固定品质": 1.5, "固定护甲": 500.0, "固定耐久": 300.0 },
+      "手套": { "蓝图": "/Game/PrimalEarth/CoreBlueprints/Items/Armor/Metal/PrimalItemArmor_MetalGloves.PrimalItemArmor_MetalGloves", "固定品质": 1.5, "固定护甲": 500.0, "固定耐久": 300.0 },
+      "靴子": { "蓝图": "/Game/PrimalEarth/CoreBlueprints/Items/Armor/Metal/PrimalItemArmor_MetalBoots.PrimalItemArmor_MetalBoots", "固定品质": 1.5, "固定护甲": 500.0, "固定耐久": 300.0 },
+      "物品": [
+        { "蓝图": "/Game/PrimalEarth/CoreBlueprints/Weapons/PrimalItem_WeaponMetalHatchet.PrimalItem_WeaponMetalHatchet", "数量": 1, "固定品质": 1.5, "固定伤害": 200.0, "固定护甲": 0.0, "固定耐久": 300.0, "图纸": false }
+      ]
+    },
+    {
+      "组名": "初级VIP套装",
+      "权限组": ["VIP1", "VIP2"],
+      "头盔": { "蓝图": "/Game/PrimalEarth/CoreBlueprints/Items/Armor/Ghillie/PrimalItemArmor_GhillieHelmet.PrimalItemArmor_GhillieHelmet", "固定品质": 1.0, "固定护甲": 200.0, "固定耐久": 200.0 },
+      "胸甲": { "蓝图": "/Game/PrimalEarth/CoreBlueprints/Items/Armor/Ghillie/PrimalItemArmor_GhillieShirt.PrimalItemArmor_GhillieShirt", "固定品质": 1.0, "固定护甲": 200.0, "固定耐久": 200.0 },
+      "护腿": { "蓝图": "/Game/PrimalEarth/CoreBlueprints/Items/Armor/Ghillie/PrimalItemArmor_GhilliePants.PrimalItemArmor_GhilliePants", "固定品质": 1.0, "固定护甲": 200.0, "固定耐久": 200.0 },
+      "手套": { "蓝图": "/Game/PrimalEarth/CoreBlueprints/Items/Armor/Ghillie/PrimalItemArmor_GhillieGloves.PrimalItemArmor_GhillieGloves", "固定品质": 1.0, "固定护甲": 200.0, "固定耐久": 200.0 },
+      "靴子": { "蓝图": "/Game/PrimalEarth/CoreBlueprints/Items/Armor/Ghillie/PrimalItemArmor_GhillieBoots.PrimalItemArmor_GhillieBoots", "固定品质": 1.0, "固定护甲": 200.0, "固定耐久": 200.0 },
+      "物品": [
+        { "蓝图": "/Game/PrimalEarth/CoreBlueprints/Weapons/PrimalItem_WeaponSword.PrimalItem_WeaponSword", "数量": 1, "固定品质": 0.0, "固定伤害": 150.0, "固定护甲": 0.0, "固定耐久": 200.0, "图纸": false }
+      ]
+    }
+  ]
+}</code></pre>
+  <p><b>怎么修改:</b>想加一套就往数组里再加一个花括号块(注意上一块末尾加逗号);想删一套就删掉整块。某一套若一件装备都没配,加载时会被跳过并黄字提示"套装列表第 N 项未配置任何装备与物品"。</p>
+  <p><b>玩家看到的反馈:</b>发放成功后玩家收到绿色聊天提示 <code>[重生赐装] 已为你穿上 高级VIP套装 (6/6 件)</code>;控制台同步记录 <code>[重生赐装] 已给玩家 76561198xxxxxxxxx 发放 [高级VIP套装] 6/6 件</code>。</p>
+</section>
+
+<!-- 04 权限组与匹配规则 -->
+<section class="unit" id="u7" data-cat="basic">
+  <div class="group">第四章 · 配置详解</div>
+  <h2>权限组与匹配规则</h2>
+  <p><b>什么意思:</b>"权限组"决定哪类玩家命中这套装备。组名必须与 Permissions 插件里的分组名完全一致(如 <code>VIP1</code>)。一套可以绑多个组——示例里 <code>["VIP3", "VIP4"]</code> 表示 VIP3 和 VIP4 玩家共用这套。</p>
+  <p><b>兜底值:</b><span class="badge">留空数组 = 匹配所有玩家</span>。这是给非 VIP 玩家发基础套装的用法。</p>
+  <p><b>怎么加 / 怎么改:</b></p>
+  <pre><code>"权限组": ["VIP1", "VIP2"]</code></pre>
+  <pre><code>"权限组": []</code></pre>
+  <p>第一段只匹配 VIP1、VIP2 玩家;第二段留空,匹配所有玩家。</p>
+  <p><b>匹配规则(重要):</b>每次触发(重生或进服)按套装列表<b>从上到下</b>找,第一个命中的套装生效,每次重生只发一套。</p>
+  <div class="warning">顺序就是优先级:如果把"权限组留空"的兜底套装放在列表最前面,所有玩家(包括 VIP)都会先命中它、拿不到高档套装。<b>兜底套装必须放在列表最后。</b></div>
+</section>
+
+<!-- 04 物品配置 -->
+<section class="unit" id="u8" data-cat="basic">
+  <div class="group">第四章 · 配置详解</div>
+  <h2>物品配置(蓝图 / 数量 / 固定品质)</h2>
+  <p><b>什么意思:</b>护甲槽位和物品数组里的每一条都是同一个"物品对象",七个键共用(在哪都用同一套):</p>
+  <table class="data-table">
+    <tr><th style="width:110px">键</th><th style="width:90px">兜底值</th><th>说明</th></tr>
+    <tr><td><code>蓝图</code></td><td>必填</td><td>物品蓝图路径;为空或缺失则该件直接跳过(不给)</td></tr>
+    <tr><td><code>数量</code></td><td>1</td><td>给予数量;须为正整数,写 0、负数或小数时按 1 处理;护甲、武器等不可堆叠物品数量大于 1 时自动逐件发放,弹药等可堆叠物品合并为一堆</td></tr>
+    <tr><td><code>固定品质</code></td><td>0</td><td>固定品质;0 = 白板,数值越高品质越高</td></tr>
+    <tr><td><code>固定伤害</code></td><td>0</td><td>武器伤害显示值(250 = 250%);0 = 不指定按固定品质</td></tr>
+    <tr><td><code>固定护甲</code></td><td>0</td><td>护甲值(500 = 500 护甲);0 = 不指定按固定品质</td></tr>
+    <tr><td><code>固定耐久</code></td><td>0</td><td>最大耐久值;0 = 不指定按固定品质</td></tr>
+    <tr><td><code>图纸</code></td><td>false</td><td>true = 发放蓝图而非成品</td></tr>
+  </table>
+  <p><b>怎么加:</b>护甲槽位直接给槽位名赋一个物品对象;物品是在"物品"数组里加条目,可加任意多项:</p>
+  <pre><code>"头盔": { "蓝图": "/Game/PrimalEarth/CoreBlueprints/Items/Armor/Ghillie/PrimalItemArmor_GhillieHelmet.PrimalItemArmor_GhillieHelmet", "固定品质": 2.0 },
+"物品": [
+  { "蓝图": "/Game/PrimalEarth/CoreBlueprints/Weapons/PrimalItem_WeaponMetalHatchet.PrimalItem_WeaponMetalHatchet", "数量": 1, "固定品质": 1.5, "固定伤害": 250.0, "固定护甲": 0.0, "固定耐久": 300.0, "图纸": false },
+  { "蓝图": "/Game/PrimalEarth/CoreBlueprints/Weapons/PrimalItem_WeaponSword.PrimalItem_WeaponSword", "数量": 1, "固定品质": 0.0, "固定伤害": 0.0, "固定护甲": 0.0, "固定耐久": 300.0, "图纸": false }
+]</code></pre>
+  <p><b>怎么修改:</b>不想发某件装备,删掉对应槽位或物品项即可——<b>不配置就不给</b>,完全按需。五个护甲槽位的名称固定为:<code>头盔</code>、<code>胸甲</code>、<code>护腿</code>、<code>手套</code>、<code>靴子</code>。</p>
+  <div class="note">固定伤害/护甲/耐久按游戏内显示值填写(如 "固定伤害": 250 表示 250% 武器伤害);只对该物品启用的属性生效——武器才有伤害、护甲才有护甲值,未启用的自动跳过。</div>
+  <div class="note">蓝图路径写错不会影响其他装备:黄字 <code>[重生赐装] 蓝图加载失败, 请检查路径: xxx</code> 表示路径无效;<code>[重生赐装] 给予物品失败, 蓝图: xxx</code> 表示路径有效但入包失败。两种情况都只跳过该件,其余照发。</div>
+</section>
+
+<!-- 04 行为开关 -->
+<section class="unit" id="u9" data-cat="basic">
+  <div class="group">第四章 · 配置详解</div>
+  <h2>行为开关(重生时给 / 进服时给 / 给装延迟秒)</h2>
+  <p><b>什么意思:</b>三个总开关控制赐装行为的触发时机。<b>重生</b>与<b>进服</b>是两个独立场景,各配各的开关。</p>
+  <table class="data-table">
+    <tr><th style="width:170px">配置键</th><th style="width:80px">兜底值</th><th>说明</th></tr>
+    <tr><td><code>重生时给</code></td><td>true</td><td>玩家<b>死亡后重生</b>时是否发放</td></tr>
+    <tr><td><code>进服时给</code></td><td>true</td><td>玩家<b>进入服务器</b>时是否发放——包括重新上线、跨服传图过来、新角色首次进服</td></tr>
+    <tr><td><code>给装延迟秒</code></td><td>1</td><td>触发后延迟几秒再给装,等角色完全就绪;0 或正整数,写负数按默认 1 处理(进服加载慢会自动重试)</td></tr>
+  </table>
+  <p><b>怎么加:</b>写在"重生赐装"节里:</p>
+  <pre><code>"重生赐装": {
+  "重生时给": true,
+  "进服时给": false,
+  "给装延迟秒": 2
+}</code></pre>
+  <p><b>怎么修改:</b>"重生时给"/"进服时给"必须是 true/false,"给装延迟秒"必须是整数;类型不对时忽略该键、使用默认值(true / 1)。上面示例 = 只在死亡重生时发,进服不发。两个开关都关则功能整体停用。</p>
+</section>
+
+<!-- 04 ConsoleEncoding -->
+<section class="unit" id="u10" data-cat="basic">
+  <div class="group">第四章 · 配置详解</div>
+  <h2>ConsoleEncoding(控制台编码)</h2>
+  <p><b>什么意思:</b>控制台输出的中文按什么编码显示,适配不同版本的方舟服务端控制台。</p>
+  <p><b>兜底值:</b><span class="badge">auto</span>(按控制台代码页自动探测)。</p>
+  <pre><code>"ConsoleEncoding": "auto"</code></pre>
+  <p><b>怎么修改:</b>可选值 <code>auto</code>(自动)、<code>gbk</code> / <code>ansi</code>(强制 GBK)、<code>utf8</code> / <code>utf-8</code>(强制 UTF-8)。写错值时回落 auto,并黄字提示 <code>ConsoleEncoding 值非法: xxx , 已回落 auto</code>;类型不是字符串同样回落 auto。</p>
+</section>
+
+<!-- 05 命令用法 -->
+<section class="unit" id="u11" data-cat="cmd">
+  <div class="group">第五章 · 命令用法详解</div>
+  <h2>命令总表与详解</h2>
+  <p class="lead">本插件只有一条管理命令,在服务器控制台或 RCON 输入;没有玩家聊天命令。</p>
+  <table class="data-table">
+    <tr><th>命令</th><th style="width:110px">权限</th><th>作用</th><th style="width:90px">改名配置键</th></tr>
+    <tr><td><code>RespawnKit.Reload</code></td><td>控制台·RCON(管理员)</td><td>热重载 config.json(含套装配置),不用重启服务器</td><td>无(命令名固定)</td></tr>
+  </table>
+  <div class="note">符号约定:命令格式里的 <code>[方括号]</code> 表示可选参数,只是标注——<b>实际输入时不要输入方括号</b>。本命令无参数,示例是可直接照抄的真实输入。</div>
+  <h3>RespawnKit.Reload</h3>
+  <p><b>作用:</b>重新读取服务器目录下的 <code>config.json</code> 并重建套装数据。改了套装、固定品质、分组名之后,执行它立即生效,不用重启服务器。</p>
+  <pre><code>RespawnKit.Reload</code></pre>
+  <table class="data-table">
+    <tr><th>参数</th><th style="width:60px">必填</th><th style="width:110px">缺省值</th><th>说明</th></tr>
+    <tr><td>(无)</td><td>—</td><td>—</td><td>本命令无参数</td></tr>
+  </table>
+  <p>示例:<code>RespawnKit.Reload</code>(在服务器控制台直接输入,或经 RCON 发送同名命令:重读配置并应用)。</p>
+  <p><b>反馈:</b>成功时执行者收到绿色消息 <code>Reloaded config</code>(RCON 回包同文);失败(如 JSON 写坏)时收到红色消息 <code>Failed to reload config</code>(RCON 回包错误详情),此时继续沿用旧配置。服务器重启后配置自动重新加载,无需执行本命令。</p>
+</section>
+
+<!-- 06 常见问题 -->
+<section class="unit" id="u12" data-cat="faq">
+  <div class="group">第六章 · 常见问题</div>
+  <h2>常见问题</h2>
+  <details class="faq"><summary>玩家重生后没发装备?</summary><div class="answer">按顺序查:① config.json 的"重生赐装"节和"套装列表"是否配置正确——配置有问题时控制台会出现黄字警告指明原因;② 玩家是否在某个"权限组"里(Permissions 控制台命令 <code>Permissions.PlayerGroups</code> 可查);③ 是否所有套装的权限组都非空、而玩家不在任何一组——需要兜底就加一个权限组留空的套装放列表最后;④ Permissions 插件是否已安装。</div></details>
+  <details class="faq"><summary>只发了一部分装备 / 物品没发出来?</summary><div class="answer">控制台黄字 <code>[重生赐装] 蓝图加载失败, 请检查路径: xxx</code> = 路径无效;<code>[重生赐装] 给予物品失败, 蓝图: xxx</code> = 路径有效但该件入包失败。都只跳过该件、其余照发。修正蓝图后执行 <code>RespawnKit.Reload</code>;也可能是该槽位本来就没配置(不配置就不给)。</div></details>
+  <details class="faq"><summary>控制台提示"缺少 [重生赐装] 节"?</summary><div class="answer">服务器插件目录下的 config.json 里没有"重生赐装"配置节(被删或损坏)。功能此时停用但插件正常加载。按第四章的完整示例补回该节,再执行 <code>RespawnKit.Reload</code>。</div></details>
+  <details class="faq"><summary>改了配置但不生效?</summary><div class="answer">先确认改的是<b>服务器目录</b>下的 config.json(<code>ShooterGame\Binaries\Win64\ArkApi\Plugins\RespawnKit\config.json</code>),不是开发机编译输出目录里那份。改完执行 <code>RespawnKit.Reload</code> 或重启服务器。</div></details>
+  <details class="faq"><summary>怎么给没有 VIP 的玩家也发一套?</summary><div class="answer">在套装列表<b>最后</b>加一个 <code>"权限组": []</code> 的套装——留空匹配所有玩家。注意顺序:兜底套装放前面会被 VIP 玩家先命中,导致 VIP 拿不到高档套装。</div></details>
+  <details class="faq"><summary>怎么临时停用功能?</summary><div class="answer">两种方式:① 删掉 config.json 的"重生赐装"节并 Reload——功能停用(黄字提示),插件继续运行;② 想连插件一起停:把 <code>RespawnKit.dll</code> 改名为 <code>RespawnKit.dll.arkapi</code> 后重启服务器(附带的一键安装.bat 也支持直接部署这种停用副本)。</div></details>
+  <details class="faq"><summary>控制台中文乱码?</summary><div class="answer">把 <code>ConsoleEncoding</code> 改成与服务器控制台匹配的值:<code>gbk</code> 或 <code>utf8</code>(留 <code>auto</code> 一般也能自动探测)。改完 Reload 生效。</div></details>
+</section>
+
+<!-- 07 技术支持 -->
+<section class="unit" id="u13" data-cat="faq">
+  <div class="group">第七章 · 技术支持</div>
+  <h2>技术支持</h2>
+  <div class="note">先锋方舟服主群:138535385,作者 QQ:711919。反馈问题时建议附上:控制台日志(启动横幅与发放/黄字警告行)、服务器目录下的 config.json、Permissions 分组情况,便于快速定位。</div>
+</section>
+
+<div class="empty hide" id="emptyState">没有匹配的内容，换个关键词或分类试试</div>
+</main>
+</div>
+
+<footer class="foot">
+  重生赐装(RespawnKit) · 服主教程 · 2026-09
+</footer>
+
+<script>
+(function(){
+var inp=document.getElementById('searchInput');
+var chips=[].slice.call(document.querySelectorAll('.chip'));
+var units=[].slice.call(document.querySelectorAll('.unit'));
+var empty=document.getElementById('emptyState');
+var cnt=document.getElementById('resultCount');
+var cat='all';
+function go(){
+  var q=(inp.value||'').trim().toLowerCase(),n=0;
+  units.forEach(function(u){
+    var okC=(cat=='all'||u.getAttribute('data-cat')==cat);
+    var t=(u.textContent||'').toLowerCase()+(u.getAttribute('data-kw')||'');
+    var okQ=!q||t.indexOf(q)>-1;
+    var s=okC&&okQ;u.classList.toggle('hide',!s);if(s)n++;
+  });
+  [].forEach.call(document.querySelectorAll('.toc a'),function(a){
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    a.classList.toggle('dim',!(el&&!el.classList.contains('hide')));
+  });
+  empty.classList.toggle('hide',n>0);
+  cnt.textContent=n+' / '+units.length+' 条';
+}
+chips.forEach(function(c){c.addEventListener('click',function(){
+  chips.forEach(function(x){x.classList.remove('on')});c.classList.add('on');
+  cat=c.getAttribute('data-cat');go();
+})});
+inp.addEventListener('input',go);go();
+})();
+</script>
+
+<!--
+==================== 搜索与分类机制（不要改动脚本） ====================
+- 检索单元 = 带 class="unit" 的元素：章节 section.unit（含 data-cat 分类）与功能卡 div.unit.card。
+- 搜索按单元内文本匹配；分类 chip 的 data-cat 与 unit 的 data-cat 对应，两者叠加过滤。
+- 新增分类：同时加一个 chip 和各 unit 的 data-cat 值；改 id 保持目录锚点与 section id 一一对应。
+- 搜索命中的目录项自动变淡由脚本完成，无需手工维护。
+
+==================== 组件速查（从这里复制写法到内容区，本注释不会显示） =====================
+
+【功能卡片】适合"功能总览"：每张卡是独立检索单元，可单独设 data-cat
+<div class="card-grid">
+  <div class="unit card" data-cat="basic"><div class="icon">🔒</div><h4>功能名</h4><p>给服主的价值。</p></div>
+</div>
+
+【步骤条】适合"安装/部署"，每步一个动作
+<ol class="steps">
+  <li><span class="step-title">步骤名</span><p>做什么 → 出现什么 → 下一步。</p></li>
+</ol>
+
+【提示框】【警告框】
+<div class="note">提示内容</div>
+<div class="warning">警告内容</div>
+
+【数据表格】环境要求 / 配置总表 / 参数表
+<table class="data-table"><tr><th>列名</th></tr><tr><td>值</td></tr></table>
+
+【FAQ 折叠块】
+<details class="faq"><summary>问题？</summary><div class="answer">答案。</div></details>
+
+【截图占位】<div class="shot">📷 此处应放截图：xxx</div>
+【行内代码】<code>config.json</code>　【代码块】<pre><code>JSON 片段</code></pre>
+【徽章】<span class="badge ok">已支持</span> <span class="badge warn">测试中</span>
+
+===========================================================================================
+-->
+</body>
+</html>
