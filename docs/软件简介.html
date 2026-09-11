@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>重生赐装(RespawnKit) 软件简介</title>
+<style>
+/* ============================================================
+   样式区：禁止修改！
+   本模板是 xiangmujiaocheng 技能的「软件简介」专属模板（清爽文档蓝）。
+   修改此区会破坏所有项目软件简介的视觉统一。
+   ============================================================ */
+:root{--acc:#2563eb;--accbg:#eff6ff;--line:#e2e8f0;--line2:#cbd5e1;--text:#1e293b;--dim:#64748b;--bg2:#f8fafc;--ok:#16a34a;--warn:#d97706;--warnbg:#fffbeb;--warnline:#fde68a}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font:15.5px/1.85 "Microsoft YaHei","PingFang SC","Segoe UI",sans-serif;color:var(--text);background:#fff}
+a{color:var(--acc);text-decoration:none}a:hover{text-decoration:underline}
+code{background:var(--accbg);color:#1d4ed8;border-radius:4px;padding:1px 7px;font-family:Consolas,"Courier New",monospace;font-size:13.5px}
+pre{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:13px 16px;overflow:auto}
+pre code{background:none;color:#0f172a;padding:0}
+.hide{display:none!important}
+
+.hero{background:linear-gradient(180deg,#eef5ff 0%,#ffffff 100%);border-bottom:1px solid var(--line);padding:44px 20px 32px;text-align:center}
+.kind{display:inline-block;background:var(--acc);color:#fff;border-radius:4px;font-size:13px;padding:2px 12px;letter-spacing:2px}
+.hero h1{margin:14px 0 8px;font-size:34px}
+.hero h1 .accent{color:var(--acc)}
+.hero .sub{color:var(--dim);margin:0 auto;max-width:640px;font-size:15.5px}
+
+.toolbar{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 1px 3px rgba(15,23,42,.05)}
+.toolbar-in{max-width:980px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:10px 20px}
+#searchInput{flex:1 1 240px;border:1px solid var(--line2);border-radius:8px;padding:8px 14px;font-size:14.5px;outline:none;background:var(--bg2)}
+#searchInput:focus{border-color:var(--acc);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--line2);background:#fff;color:var(--dim);border-radius:999px;padding:5px 15px;font-size:13.5px;cursor:pointer}
+.chip:hover{border-color:var(--acc);color:var(--acc)}
+.chip.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.count{color:var(--dim);font-size:13px;white-space:nowrap}
+
+.content{max-width:980px;margin:0 auto;padding:30px 20px 70px}
+
+.unit{margin:0 0 38px}
+.group{font-size:12.5px;color:var(--acc);letter-spacing:2px;margin-bottom:4px}
+.unit>h2{margin:0 0 10px;font-size:22px;border-left:4px solid var(--acc);padding-left:12px}
+.lead{color:var(--dim);margin:0 0 14px;font-size:14.5px}
+.unit h3{font-size:16.5px;margin:20px 0 8px}
+
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:13px;margin:16px 0}
+.card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:15px 17px;box-shadow:0 1px 2px rgba(15,23,42,.04);transition:.15s}
+.card:hover{border-color:var(--acc);box-shadow:0 4px 14px rgba(37,99,235,.12)}
+.card .icon{font-size:22px}
+.card h4{margin:7px 0 5px;font-size:15.5px;color:var(--acc)}
+.card p{margin:0;color:var(--dim);font-size:13.5px}
+
+.note,.warning{border-radius:8px;padding:12px 16px;margin:14px 0;font-size:14.5px}
+.note{background:var(--accbg);border:1px solid #bfdbfe}
+.warning{background:var(--warnbg);border:1px solid var(--warnline)}
+
+table.data-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14.5px}
+.data-table th{background:var(--accbg);color:#1d4ed8;text-align:left}
+.data-table th,.data-table td{border:1px solid var(--line);padding:8px 13px}
+.data-table tr:nth-child(even) td{background:#fbfdff}
+
+details.faq{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px 16px;margin:9px 0}
+details.faq summary{cursor:pointer;font-weight:600}
+details.faq[open]{border-color:var(--acc)}
+details.faq .answer{color:var(--dim);padding-top:7px}
+
+.shot{border:2px dashed var(--line2);border-radius:8px;padding:26px;text-align:center;color:var(--dim);font-size:14px;margin:13px 0}
+.badge{display:inline-block;border-radius:4px;padding:1px 10px;font-size:12.5px;margin-right:6px;color:var(--acc);border:1px solid var(--acc)}
+.badge.ok{color:var(--ok);border-color:var(--ok)}
+.badge.warn{color:var(--warn);border-color:var(--warn)}
+.empty{border:1px dashed var(--line2);border-radius:10px;padding:44px;text-align:center;color:var(--dim);margin:20px 0}
+
+.foot{border-top:1px solid var(--line);color:var(--dim);text-align:center;padding:20px;font-size:13px;background:var(--bg2)}
+@media (max-width:640px){.hero h1{font-size:26px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <span class="kind">软件简介</span>
+  <h1>重生赐装 <span class="accent">落地即着装</span></h1>
+  <p class="sub">方舟官方设定里,玩家死亡重生后身上一件装备都没有——直播画面随时可能因裸体被判违规。装上它,玩家每次重生、进服都自动穿好护甲、领到配置的物品,你配置一次,它每次都管。</p>
+</header>
+
+<div class="toolbar"><div class="toolbar-in">
+  <input id="searchInput" type="search" placeholder="搜索功能…">
+  <div class="chips">
+    <button class="chip on" data-cat="all">全部</button>
+    <button class="chip" data-cat="core">核心卖点</button>
+    <button class="chip" data-cat="adv">特色功能</button>
+    <button class="chip" data-cat="env">适配与购买</button>
+  </div>
+  <span class="count" id="resultCount"></span>
+</div></div>
+
+<main class="content">
+
+<!-- 01 软件定位 -->
+<section class="unit" id="s1" data-cat="core">
+  <div class="group">01 · 软件定位</div>
+  <h2>软件定位</h2>
+  <p><b>为什么需要它:</b>方舟的官方设定是"死亡掉光、重生裸装"——玩家重生落地的画面里,角色身上什么都没穿。服务器一旦被直播,这样的裸体画面随时可能被直播平台判定为违规内容;靠管理员手动发装备、喊玩家自己穿,人手跟不上每一次死亡,画面早就播出去了。</p>
+  <p><b>它替你做什么:</b>重生赐装(RespawnKit)是方舟生存进化的服务端插件,直接挂在重生与进服流程上——玩家一重生或进服(默认 1 秒内)护甲就自动穿戴整齐、物品发放进背包;还能按 VIP 等级分组发不同套装。你只管配置一次,之后每一次重生它都自动搞定。</p>
+</section>
+
+<!-- 02 适配环境 -->
+<section class="unit" id="s2" data-cat="env">
+  <div class="group">02 · 适配环境</div>
+  <h2>适配环境</h2>
+  <table class="data-table">
+    <tr><th style="width:150px">项目</th><th>要求</th></tr>
+    <tr><td>操作系统</td><td>Windows(方舟 Windows 版服务端)</td></tr>
+    <tr><td>服务端框架</td><td>ArkServerAPI(ArkApi)3.5 及以上</td></tr>
+    <tr><td>配套插件</td><td>Permissions 插件(用于 VIP 权限组判定)</td></tr>
+    <tr><td>配置存储</td><td>JSON 配置文件(<code>config.json</code>),无数据库依赖</td></tr>
+  </table>
+</section>
+
+<!-- 03 功能展示·总览 -->
+<div class="card-grid">
+  <div class="unit card" data-cat="core"><div class="icon">🛡️</div><h4>重生自动穿装</h4><p>玩家一落地装备自动上身,直播画面不再停留在裸体状态。</p></div>
+  <div class="unit card" data-cat="core"><div class="icon">👕</div><h4>给了就穿上</h4><p>护甲自动穿戴整齐,物品发放进背包,不用玩家手动一件件穿。</p></div>
+  <div class="unit card" data-cat="adv"><div class="icon">👑</div><h4>VIP 分组套装</h4><p>VIP1、VIP2 一套,VIP3、VIP4 又一套,不同消费层级不同待遇。</p></div>
+  <div class="unit card" data-cat="adv"><div class="icon">🧩</div><h4>槽位自由配置</h4><p>每套五件护甲加任意物品,不配置的槽位就不给,完全按需。</p></div>
+  <div class="unit card" data-cat="adv"><div class="icon">📈</div><h4>属性精确可调</h4><p>品质数量可调,武器伤害、护甲、耐久还能按数值精确指定,图纸也能发。</p></div>
+  <div class="unit card" data-cat="adv"><div class="icon">🔄</div><h4>热重载</h4><p>改套装配置不用重启服务器,一条命令立即生效,直播不断线。</p></div>
+</div>
+
+<!-- 03 重点功能 1 -->
+<section class="unit" id="s3" data-cat="core">
+  <div class="group">03 · 重点功能</div>
+  <h2>重生自动赐装 <span class="badge ok">核心</span> <span class="badge">为直播合规而生</span></h2>
+  <p><b>什么功能:</b>玩家死亡重生或新建角色出生时,插件自动发放套装——护甲自动穿戴、物品入包(默认延迟 1 秒等角色就绪,时长可配);重生与进服(含传图)各配一个开关,什么时候发你说了算。</p>
+  <p><b>什么作用:</b>玩家一落地就衣甲齐全——直播、录屏、宣传截图里,重生画面不再是裸体角色,从源头掐掉这个违规隐患。</p>
+  <p><b>给你的好处:</b>没有它,你要么祈祷直播时没人死,要么安排管理员盯着发装备——每一次死亡都是一次手忙脚乱。有了它,零操作:重生、穿戴、提示一气呵成,玩家还会收到一条绿色提示"已为你穿上 XX 套装",体验专业又体面。发放结果同步写进控制台日志(含玩家 SteamID 和成功件数),查问题一眼可查。</p>
+  <div class="shot">📷 此处应放截图:玩家重生后已自动穿戴整齐的游戏画面</div>
+</section>
+
+<!-- 03 重点功能 2 -->
+<section class="unit" id="s4" data-cat="adv">
+  <div class="group">03 · 重点功能</div>
+  <h2>VIP 分组套装 <span class="badge ok">按身份发装</span></h2>
+  <p><b>什么功能:</b>每套装备绑定一组 Permissions 权限组,比如 <code>VIP1、VIP2</code> 发吉利服套装加铁剑,<code>VIP3、VIP4</code> 发铁甲套装加金属斧;玩家重生时按分组自动对号入座,每人每次只发命中的一套。</p>
+  <p><b>什么作用:</b>VIP 的特权看得见摸得着——高等级 VIP 重生直接拿到更好的装备,续费理由当场兑现。</p>
+  <p><b>给你的好处:</b>套装与人的对应关系全部由 Permissions 权限组管理,玩家升降级只需在 Permissions 里挪分组,套装配置一行不用改;权限组留空还能给所有玩家发一套基础装,零 VIP 也兜底覆盖,不怕漏网。</p>
+  <div class="shot">📷 此处应放截图:不同 VIP 等级玩家重生后的装备对比</div>
+</section>
+
+<!-- 03 重点功能 3 -->
+<section class="unit" id="s5" data-cat="adv">
+  <div class="group">03 · 重点功能</div>
+  <h2>五件护甲 + 物品,槽位自由配</h2>
+  <p><b>什么功能:</b>每套装备 = 头盔、胸甲、护腿、手套、靴子五件护甲 + 任意多件物品,每件都可设蓝图路径、数量和固定品质;不配置的槽位就不发。</p>
+  <p><b>什么作用:</b>想只发护甲不发物品?删掉物品配置即可;想让 VIP 的甲更硬?固定品质数字一改(0 = 白板,越大越好),或用固定护甲/耐久精确到具体数值(示例配置里 VIP3/4 用 1.5 固定品质、金属斧固定 200% 伤害)。</p>
+  <p><b>给你的好处:</b>全部在 <code>config.json</code> 里配置,自带两套开箱即用的示例;哪怕某个蓝图路径写错,也只跳过那一件并在控制台黄字提醒,其余装备照发——不会因为一处笔误让玩家继续裸着。</p>
+  <div class="shot">📷 此处应放截图:config.json 中的套装配置示例</div>
+</section>
+
+<!-- 03 重点功能 4 -->
+<section class="unit" id="s6" data-cat="adv">
+  <div class="group">03 · 重点功能</div>
+  <h2>热重载 + 容错 <span class="badge ok">省心运维</span></h2>
+  <p><b>什么功能:</b>服务器里执行 <code>RespawnKit.Reload</code>(控制台或 RCON 均可)即可热重载套装配置,不用重启;配置文件缺少"重生赐装"节时,功能自动停用并黄字提示,插件本体照常加载。</p>
+  <p><b>什么作用:</b>开播前临时调套装、加一组新 VIP,一条命令立即生效。</p>
+  <p><b>给你的好处:</b>不重启就不断线,直播不中断、玩家不流失;配置手误也不会连累整个插件罢工——坏一行,只影响那一行,黄字警告直接告诉你错在哪。</p>
+</section>
+
+<!-- 04 运行效果 -->
+<section class="unit" id="s7" data-cat="core">
+  <div class="group">04 · 运行效果</div>
+  <h2>运行效果</h2>
+  <div class="shot">📷 此处应放截图:玩家重生后已自动穿戴整齐(游戏内画面)</div>
+  <div class="shot">📷 此处应放截图:玩家收到的绿色提示消息(已为你穿上 XX 套装)</div>
+  <div class="shot">📷 此处应放截图:服务器控制台的发放日志</div>
+</section>
+
+<!-- 05 价格与购买 -->
+<section class="unit" id="s8" data-cat="env">
+  <div class="group">05 · 价格与购买</div>
+  <h2>价格与购买</h2>
+  <div class="note">咨询与购买请联系:先锋方舟服主群 138535385,作者 QQ 711919;价格与版本以发布信息为准。</div>
+</section>
+
+<div class="empty hide" id="emptyState">没有匹配的内容，换个关键词或分类试试</div>
+</main>
+
+<footer class="foot">
+  重生赐装(RespawnKit) · 软件简介 · 2026-09
+</footer>
+
+<script>
+(function(){
+var inp=document.getElementById('searchInput');
+var chips=[].slice.call(document.querySelectorAll('.chip'));
+var units=[].slice.call(document.querySelectorAll('.unit'));
+var empty=document.getElementById('emptyState');
+var cnt=document.getElementById('resultCount');
+var cat='all';
+function go(){
+  var q=(inp.value||'').trim().toLowerCase(),n=0;
+  units.forEach(function(u){
+    var okC=(cat=='all'||u.getAttribute('data-cat')==cat);
+    var t=(u.textContent||'').toLowerCase()+(u.getAttribute('data-kw')||'');
+    var okQ=!q||t.indexOf(q)>-1;
+    var s=okC&&okQ;u.classList.toggle('hide',!s);if(s)n++;
+  });
+  empty.classList.toggle('hide',n>0);
+  cnt.textContent=n+' / '+units.length+' 条';
+}
+chips.forEach(function(c){c.addEventListener('click',function(){
+  chips.forEach(function(x){x.classList.remove('on')});c.classList.add('on');
+  cat=c.getAttribute('data-cat');go();
+})});
+inp.addEventListener('input',go);go();
+})();
+</script>
+
+<!--
+==================== 搜索与分类机制（不要改动脚本） ====================
+- 检索单元 = 带 class="unit" 的元素：章节 section.unit 与卖点卡片 div.unit.card（卡片可单独设 data-cat，被单独过滤）。
+- 搜索按单元内文本匹配，与分类 chip 叠加过滤；新增分类时同时加 chip 和 unit 的 data-cat。
+- 本模板无目录侧栏，不需要维护锚点。
+
+==================== 组件速查（从这里复制写法到内容区，本注释不会显示） =====================
+
+【卖点卡片】功能总览：功能名 + 一句有感染力的卖点
+<div class="card-grid">
+  <div class="unit card" data-cat="core"><div class="icon">🔒</div><h4>功能名</h4><p>卖点。</p></div>
+</div>
+
+【徽章】<span class="badge ok">核心</span> <span class="badge">独家</span> <span class="badge warn">挑战</span>
+
+【提示框】<div class="note">购买/联系方式</div>
+
+【数据表格】适配环境 / 版本价格
+<table class="data-table"><tr><th>项目</th><th>要求</th></tr><tr><td>值</td><td>说明</td></tr></table>
+
+【截图占位】<div class="shot">📷 此处应放截图：xxx</div>
+【行内代码】<code>名称</code>
+
+===========================================================================================
+-->
+</body>
+</html>
